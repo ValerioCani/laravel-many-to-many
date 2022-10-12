@@ -37,6 +37,15 @@
                     <div class="alert text-danger">{{ $message }}</div>
                 @enderror
             </div>
+            <p>Tags</p>
+            <div class="form-group">
+                @foreach ($tags as $tag)
+                    <div class="form-group form-check">
+                        <input type="checkbox" name="tags[]" class="form-check-input" id="{{$tag->id}}" value="{{$tag->id}}">
+                        <label for="{{$tag->id}}">{{$tag->name}}</label>
+                    </div>
+                @endforeach
+            </div>
 
             <button type="submit" class="btn btn-primary">Pubblica Post</button>
         </form>
