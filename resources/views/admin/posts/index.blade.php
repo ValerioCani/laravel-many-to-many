@@ -27,7 +27,6 @@
                                     <li>{{$tag->name}}</li>
                                 @endforeach
                             </ul>
-
                         </td>
                         <td class="d-flex">
                             <a class="btn btn-info" href="{{route('admin.posts.show', ['post'=>$post->id])}}">Visualizza</a>
