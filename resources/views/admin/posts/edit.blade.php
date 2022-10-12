@@ -39,6 +39,24 @@
                 @enderror
             </div>
 
+            <p>Tags</p>
+            <div class="form-group">
+                @foreach ($tags as $tag)
+                    <div class="form-group form-check">
+                        <input
+                            type="checkbox" name="tags[]" class="form-check-input" id="culo{{$tag->id}}" value="{{$tag->id}}"
+
+                            @foreach ($post->tags as $oldtag)
+                                @if ($oldtag->id == $tag->id)
+                                    {{'checked'}}
+                                @endif
+                            @endforeach
+                        >
+                        <label for="culo{{$tag->id}}">{{$tag->name}}</label>
+                    </div>
+                @endforeach
+            </div>
+
             <button type="submit" class="btn btn-primary">Salva Modifiche</button>
         </form>
 
