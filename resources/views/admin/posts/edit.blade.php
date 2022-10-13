@@ -34,7 +34,7 @@
                     @endforeach
 
                 </select>
-                 @error('category')
+                @error('category')
                     <div class="alert text-danger">{{ $message }}</div>
                 @enderror
             </div>
@@ -43,18 +43,25 @@
             <div class="form-group">
                 @foreach ($tags as $tag)
                     <div class="form-group form-check">
-                        <input
-                            type="checkbox" name="tags[]" class="form-check-input" id="culo{{$tag->id}}" value="{{$tag->id}}"
-
-                            @foreach ($post->tags as $oldtag)
-                                @if ($oldtag->id == $tag->id)
-                                    {{'checked'}}
-                                @endif
-                            @endforeach
+                        <input type="checkbox" name="tags[]" class="form-check-input" id="culo{{$tag->id}}" value="{{$tag->id}}"
+                            @if ($errors->any())
+                                {{(in_array($tag->id, old('tags',[])))?'checked':''}}
+                            @else
+                                @foreach ($post->tags as $oldtag)
+                                    @if ($oldtag->id == $tag->id)
+                                        {{'checked'}}
+                                    @endif
+                                @endforeach
+                            @endif
                         >
                         <label for="culo{{$tag->id}}">{{$tag->name}}</label>
                     </div>
                 @endforeach
+                @error('tags')
+                    <div class="alert alert-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
 
             <button type="submit" class="btn btn-primary">Salva Modifiche</button>

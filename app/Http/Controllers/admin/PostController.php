@@ -98,7 +98,9 @@ class PostController extends Controller
     {
         $request->validate([
             'title'=>'required|max:255',
-            'content'=>'required|max:65535'
+            'content'=>'required|max:65535',
+            'category_id'=>'nullable|exists:categories,id',
+            'tags'=>'exists:tags,id'
         ]);
 
         $data=$request->all();
@@ -107,6 +109,10 @@ class PostController extends Controller
         }
 
         $post->update($data);
+
+        if(array_key_exists('tags', $data)){
+            $post->tags()->sync($data['tags']);
+        }
 
         return redirect()->route('admin.posts.index')->with('status', 'Post modificato con successo');
     }
@@ -119,7 +125,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->destroy($post->id);
+        $post->tags()->sync([]);
+        $post->delete();
         return redirect()->route('admin.posts.index')->with('status', 'Post cancellato con successo');
     }
 
